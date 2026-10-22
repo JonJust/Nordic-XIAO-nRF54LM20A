@@ -1,0 +1,9 @@
+# Generated application builds and local working files.
+apps/*/build*/
+tmp/
+
+# Downloaded dependency; see third_party/README.md for the pinned source.
+third_party/platform-seeedboards/
+
+# Downloaded debugger binaries; provenance is in .tools/README.md.
+.tools/openocd/

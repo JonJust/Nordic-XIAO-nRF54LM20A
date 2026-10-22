@@ -1,0 +1,9 @@
+{
+    "cmake.configureOnOpen": false,
+    "nrf-connect.boardRoots": [
+        "${workspaceFolder}/third_party/platform-seeedboards/zephyr/nrf"
+    ],
+    "C_Cpp.debugShortcut": true,
+    "debug.saveBeforeStart": "allEditorsInActiveGroup",
+    "debug.onTaskErrors": "abort"
+}

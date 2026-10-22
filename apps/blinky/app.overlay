@@ -1,0 +1,17 @@
+/* Use the RGB LED pins as GPIO, without a PWM driver claiming them. */
+&pwm20 {
+	status = "disabled";
+};
+
+/* V1.0's Nordic USB pins are unconnected. USB-C uses the SAMD11 bridge. */
+&usbhs {
+	status = "disabled";
+};
+
+&usbhs_wrapper {
+	status = "disabled";
+};
+
+&vregusb {
+	status = "disabled";
+};

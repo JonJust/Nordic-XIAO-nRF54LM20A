@@ -1,0 +1,5 @@
+# XIAO nRF54LM20A SAMD11 CMSIS-DAP debugger and UART bridge.
+# Keep this before 73-seat-late.rules so uaccess can grant the active user access.
+SUBSYSTEM=="usb", ATTR{idVendor}=="2886", ATTR{idProduct}=="0068", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="2886", ATTRS{idProduct}=="0068", MODE="0660", GROUP="plugdev", TAG+="uaccess"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="2886", ATTRS{idProduct}=="0068", MODE="0660", GROUP="plugdev", TAG+="uaccess"

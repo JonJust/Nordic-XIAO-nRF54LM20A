@@ -1,0 +1,67 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug XIAO blinky (build + flash)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-debug/zephyr/zephyr.elf",
+            "cwd": "${workspaceFolder}",
+            "MIMode": "gdb",
+            "miDebuggerPath": "/home/skipper/ncs/toolchains/8285d8ad56/opt/zephyr-sdk/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb",
+            "miDebuggerServerAddress": "127.0.0.1:3333",
+            "debugServerPath": "${workspaceFolder}/../../.tools/openocd/bin/openocd",
+            "debugServerArgs": "-s ${workspaceFolder}/../../.tools/openocd/share/openocd/scripts -f ${workspaceFolder}/../../third_party/platform-seeedboards/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/support/openocd.cfg -c \"nrf54lm20a.cpu configure -event examine-fail {}\" -c \"bindto 127.0.0.1\" -c \"gdb_port 3333\" -c \"tcl_port disabled\" -c \"telnet_port disabled\" -c \"gdb_memory_map disable\" -c \"gdb_flash_program disable\" -c \"nrf54lm20a.cpu configure -event gdb-detach {resume}\" -c init -c \"reset halt\"",
+            "serverStarted": "Listening on port 3333 for gdb connections",
+            "filterStderr": true,
+            "serverLaunchTimeout": 10000,
+            "stopAtEntry": false,
+            "postRemoteConnectCommands": [
+                {
+                    "text": "monitor reset halt",
+                    "ignoreFailures": false
+                },
+                {
+                    "description": "Stop at main after Zephyr startup with a temporary hardware breakpoint.",
+                    "text": "-break-insert -h -t main",
+                    "ignoreFailures": false
+                }
+            ],
+            "launchCompleteCommand": "exec-continue",
+            "hardwareBreakpoints": {
+                "require": true
+            },
+            "externalConsole": false,
+            "setupCommands": [
+                {
+                    "description": "Treat the Nordic RRAM code region as read-only so GDB uses hardware breakpoints, including at main.",
+                    "text": "mem 0x00000000 0x001fd000 ro",
+                    "ignoreFailures": false
+                }
+            ],
+            "preLaunchTask": "nRF: Flash blinky debug build (OpenOCD)",
+            "presentation": {
+                "group": "XIAO",
+                "order": 1
+            },
+            "unknownBreakpointHandling": "stop"
+        },
+        {
+            "name": "Run XIAO blinky (build + flash)",
+            "type": "cppdbg",
+            "request": "launch",
+            "noDebug": true,
+            "program": "/usr/bin/printf",
+            "args": [
+                "XIAO nRF54LM20A is running.\\n"
+            ],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "nRF: Flash blinky debug build (OpenOCD)",
+            "externalConsole": false,
+            "presentation": {
+                "group": "XIAO",
+                "order": 2
+            }
+        }
+    ]
+}

@@ -1,0 +1,114 @@
+{
+  "collected_date": "2026-10-20",
+  "board_revision": "unknown",
+  "files": [
+    {
+      "path": "nordic/nRF54LM20A_nRF54LM20B_Datasheet_v1.0.pdf",
+      "source_url": "https://files.seeedstudio.com/wiki/XIAO_nRF54LM20A/getting_start/RES/nRF54LM20A_nRF54LM20B_Datasheet_v1.0.pdf",
+      "bytes": 14570820,
+      "sha256": "9f8250bfd90f61a8e112827cd0f4c038e89fc6afb7b51c072c0d23800e69df37"
+    },
+    {
+      "path": "seeed/New_XIAO_Series_Footprints.zip",
+      "source_url": "https://files.seeedstudio.com/wiki/XIAO-KiCad-Library/New_XIAO_Series_Footprints.zip",
+      "bytes": 1084956,
+      "sha256": "671cb119639e489091b87a64e070d4aba1f22860ddfdbecc85ff143c0c295e28"
+    },
+    {
+      "path": "seeed/XIAO_Series_SCH_Symbols.zip",
+      "source_url": "https://files.seeedstudio.com/wiki/XIAO-KiCad-Library/XIAO_Series_SCH_Symbols.zip",
+      "bytes": 8867,
+      "sha256": "e80bc5e41b427ed5428e37ceebf0258a1b37f312f93135c29f5ffd898b8bfdf5"
+    },
+    {
+      "path": "seeed/XIAO_nRF54LM20A_Pin_definition.xlsx",
+      "source_url": "https://files.seeedstudio.com/wiki/XIAO_nRF54LM20A/getting_start/RES/XIAO_nRF54LM20A_Pin_definition.xlsx",
+      "bytes": 2660892,
+      "sha256": "6711bde06e169fa99a567abcce34bb0aa6665bc4a939483faaf31b5682926944"
+    },
+    {
+      "path": "seeed/XIAO_nRF54LM20A_Schematic.pdf",
+      "source_url": "https://files.seeedstudio.com/wiki/XIAO_nRF54LM20A/getting_start/RES/XIAO_nRF54LM20A_Schematic.pdf",
+      "bytes": 6158379,
+      "sha256": "f877501a6ff64b1fd9da15eb7df643c339f426869e8cf81ca4c727ec97260da3"
+    },
+    {
+      "path": "seeed/XIAO_nRF54LM20A_V1.0_SCH_PCB_260508.zip",
+      "source_url": "https://files.seeedstudio.com/wiki/XIAO_nRF54LM20A/getting_start/RES/XIAO_nRF54LM20A_V1.0_SCH&PCB_260508.zip",
+      "bytes": 4307651,
+      "sha256": "ca7f509f5716c57dd0d9a3f3098e249d805c3037fc3d80fd5e7d3cf6e4f60ada"
+    },
+    {
+      "path": "seeed/platform-seeedboards-a6fd41d/LICENSE",
+      "source_url": "https://raw.githubusercontent.com/Seeed-Studio/platform-seeedboards/a6fd41debbbcda13b5340fff50c9092ed3289194/LICENSE",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "path": "seeed/platform-seeedboards-a6fd41d/README.md",
+      "source_url": "https://raw.githubusercontent.com/Seeed-Studio/platform-seeedboards/a6fd41debbbcda13b5340fff50c9092ed3289194/README.md",
+      "bytes": 5791,
+      "sha256": "119badc9a86bc8c21750e8b0cecb39b8425d2266021537816879332d45026df9"
+    },
+    {
+      "path": "seeed/platform-seeedboards-a6fd41d/platform.json",
+      "source_url": "https://raw.githubusercontent.com/Seeed-Studio/platform-seeedboards/a6fd41debbbcda13b5340fff50c9092ed3289194/platform.json",
+      "bytes": 9137,
+      "sha256": "408e56d9c1a724beb27ea50a8f19df879c1039b19eac6defc56f6550e9226c0f"
+    },
+    {
+      "path": "seeed/platform-seeedboards-a6fd41d/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/Kconfig.defconfig",
+      "source_url": "https://raw.githubusercontent.com/Seeed-Studio/platform-seeedboards/a6fd41debbbcda13b5340fff50c9092ed3289194/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/Kconfig.defconfig",
+      "bytes": 2638,
+      "sha256": "d59cb3133ab7388a051862b53740f213d6570e4ca740f6d15c6e5c8b97100127"
+    },
+    {
+      "path": "seeed/platform-seeedboards-a6fd41d/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/Kconfig.sysbuild",
+      "source_url": "https://raw.githubusercontent.com/Seeed-Studio/platform-seeedboards/a6fd41debbbcda13b5340fff50c9092ed3289194/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/Kconfig.sysbuild",
+      "bytes": 2860,
+      "sha256": "41a30a18eb502b9dd47081ac8e33e6be06176fee59ce9abe42f3b6eb162dd4a6"
+    },
+    {
+      "path": "seeed/platform-seeedboards-a6fd41d/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/Kconfig.xiao_nrf54lm20a",
+      "source_url": "https://raw.githubusercontent.com/Seeed-Studio/platform-seeedboards/a6fd41debbbcda13b5340fff50c9092ed3289194/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/Kconfig.xiao_nrf54lm20a",
+      "bytes": 4211,
+      "sha256": "a6e51fddf9af06a1e73fc6fd96f44d24972b2063e6ec3f25725d1f6f6fbd5452"
+    },
+    {
+      "path": "seeed/platform-seeedboards-a6fd41d/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/board.cmake",
+      "source_url": "https://raw.githubusercontent.com/Seeed-Studio/platform-seeedboards/a6fd41debbbcda13b5340fff50c9092ed3289194/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/board.cmake",
+      "bytes": 617,
+      "sha256": "c5da729057e3b99ac216dc778b18afeeb6e3f3e3f3970d3ea92a2f0210ae7bef"
+    },
+    {
+      "path": "seeed/platform-seeedboards-a6fd41d/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/board.yml",
+      "source_url": "https://raw.githubusercontent.com/Seeed-Studio/platform-seeedboards/a6fd41debbbcda13b5340fff50c9092ed3289194/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/board.yml",
+      "bytes": 1077,
+      "sha256": "3f5ffe20521bd58561c634f4205687c510aebf309cbe133fee717bc393a16866"
+    },
+    {
+      "path": "seeed/platform-seeedboards-a6fd41d/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/support/openocd.cfg",
+      "source_url": "https://raw.githubusercontent.com/Seeed-Studio/platform-seeedboards/a6fd41debbbcda13b5340fff50c9092ed3289194/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/support/openocd.cfg",
+      "bytes": 5672,
+      "sha256": "5d2ce78f3846be6b17124a9e8e2e3a394572e63bedb1f57d1d41ce1ae1f28345"
+    },
+    {
+      "path": "seeed/platform-seeedboards-a6fd41d/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/xiao_nrf54lm20a_nrf54lm20a_cpuapp_2_0_0.overlay",
+      "source_url": "https://raw.githubusercontent.com/Seeed-Studio/platform-seeedboards/a6fd41debbbcda13b5340fff50c9092ed3289194/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/xiao_nrf54lm20a_nrf54lm20a_cpuapp_2_0_0.overlay",
+      "bytes": 4607,
+      "sha256": "02bcda931ab71e48f9000075709a53068d9aa08a3805ee437f17bd9c81469afe"
+    },
+    {
+      "path": "seeed/platform-seeedboards-a6fd41d/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/xiao_nrf54lm20a_nrf54lm20a_cpuapp_2_0_0_defconfig",
+      "source_url": "https://raw.githubusercontent.com/Seeed-Studio/platform-seeedboards/a6fd41debbbcda13b5340fff50c9092ed3289194/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/xiao_nrf54lm20a_nrf54lm20a_cpuapp_2_0_0_defconfig",
+      "bytes": 399,
+      "sha256": "9ba9aa0cbeef2d108c114ae8a7f683a3b855ee5cb5d8dda791ced4354d126e0c"
+    },
+    {
+      "path": "seeed/platform-seeedboards-a6fd41d/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/xiao_nrf54lm20a_nrf54lm20a_cpuapp_defconfig",
+      "source_url": "https://raw.githubusercontent.com/Seeed-Studio/platform-seeedboards/a6fd41debbbcda13b5340fff50c9092ed3289194/zephyr/nrf/boards/seeed/xiao_nrf54lm20a/xiao_nrf54lm20a_nrf54lm20a_cpuapp_defconfig",
+      "bytes": 909,
+      "sha256": "ca8cc929d73b5f26841af3ec2040733dd85251803ede6e9627dcd25ba2731af5"
+    }
+  ]
+}

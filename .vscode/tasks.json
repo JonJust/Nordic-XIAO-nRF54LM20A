@@ -1,0 +1,156 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "nRF: Check XIAO debugger is available",
+            "type": "process",
+            "command": "/usr/bin/python3",
+            "args": [
+                "${workspaceFolder}/scripts/check-xiao-available.py"
+            ],
+            "problemMatcher": [],
+            "detail": "Before flashing, explain if another debug session still owns the board."
+        },
+        {
+            "label": "nRF: Build blinky (NCS 3.4.1)",
+            "type": "process",
+            "command": "/home/skipper/.vscode/extensions/nordic-semiconductor.nrf-connect-2026.9.2823-linux-x64/platform/nrfutil/bin/nrfutil-sdk-manager",
+            "args": [
+                "toolchain",
+                "launch",
+                "--toolchain-path",
+                "/home/skipper/ncs/toolchains/8285d8ad56",
+                "--log-output",
+                "stdout",
+                "--log-level",
+                "off",
+                "--",
+                "west",
+                "build",
+                "--no-sysbuild",
+                "-p",
+                "auto",
+                "-b",
+                "xiao_nrf54lm20a@1.0.0/nrf54lm20a/cpuapp",
+                "-s",
+                "${workspaceFolder}/apps/blinky",
+                "-d",
+                "${workspaceFolder}/apps/blinky/build"
+            ],
+            "options": {
+                "cwd": "/home/skipper/ncs/v3.4.1"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$gcc",
+            "detail": "Build the XIAO V1.0 LED application with the installed Nordic SDK and toolchain."
+        },
+        {
+            "label": "nRF: Clean blinky (NCS 3.4.1)",
+            "type": "process",
+            "command": "/home/skipper/.vscode/extensions/nordic-semiconductor.nrf-connect-2026.9.2823-linux-x64/platform/nrfutil/bin/nrfutil-sdk-manager",
+            "args": [
+                "toolchain",
+                "launch",
+                "--toolchain-path",
+                "/home/skipper/ncs/toolchains/8285d8ad56",
+                "--log-output",
+                "stdout",
+                "--log-level",
+                "off",
+                "--",
+                "west",
+                "build",
+                "--no-sysbuild",
+                "-d",
+                "${workspaceFolder}/apps/blinky/build",
+                "-t",
+                "clean"
+            ],
+            "options": {
+                "cwd": "/home/skipper/ncs/v3.4.1"
+            },
+            "group": "build",
+            "problemMatcher": [],
+            "detail": "Remove compiled blinky outputs while retaining the build configuration."
+        },
+        {
+            "type": "process",
+            "command": "/home/skipper/.vscode/extensions/nordic-semiconductor.nrf-connect-2026.9.2823-linux-x64/platform/nrfutil/bin/nrfutil-sdk-manager",
+            "options": {
+                "cwd": "/home/skipper/ncs/v3.4.1"
+            },
+            "label": "nRF: Build blinky for debugging (NCS 3.4.1)",
+            "args": [
+                "toolchain",
+                "launch",
+                "--toolchain-path",
+                "/home/skipper/ncs/toolchains/8285d8ad56",
+                "--log-output",
+                "stdout",
+                "--log-level",
+                "off",
+                "--",
+                "west",
+                "build",
+                "--no-sysbuild",
+                "-p",
+                "auto",
+                "-b",
+                "xiao_nrf54lm20a@1.0.0/nrf54lm20a/cpuapp",
+                "-s",
+                "${workspaceFolder}/apps/blinky",
+                "-d",
+                "${workspaceFolder}/apps/blinky/build-debug",
+                "--",
+                "-DEXTRA_CONF_FILE=debug.conf",
+                "-DOPENOCD=${workspaceFolder}/.tools/openocd/bin/openocd"
+            ],
+            "group": "build",
+            "problemMatcher": "$gcc",
+            "detail": "Build a separate -Og image with debug symbols for hardware debugging."
+        },
+        {
+            "type": "process",
+            "command": "/home/skipper/.vscode/extensions/nordic-semiconductor.nrf-connect-2026.9.2823-linux-x64/platform/nrfutil/bin/nrfutil-sdk-manager",
+            "options": {
+                "cwd": "/home/skipper/ncs/v3.4.1"
+            },
+            "label": "nRF: Flash blinky debug build (OpenOCD)",
+            "dependsOn": [
+                "nRF: Check XIAO debugger is available",
+                "nRF: Build blinky for debugging (NCS 3.4.1)"
+            ],
+            "args": [
+                "toolchain",
+                "launch",
+                "--toolchain-path",
+                "/home/skipper/ncs/toolchains/8285d8ad56",
+                "--log-output",
+                "stdout",
+                "--log-level",
+                "off",
+                "--",
+                "west",
+                "flash",
+                "--no-rebuild",
+                "-d",
+                "${workspaceFolder}/apps/blinky/build-debug",
+                "-r",
+                "openocd",
+                "--openocd",
+                "${workspaceFolder}/.tools/openocd/bin/openocd",
+                "--openocd-search",
+                "${workspaceFolder}/.tools/openocd/share/openocd/scripts",
+                "--cmd-pre-init",
+                "nrf54lm20a.cpu configure -event examine-fail {}",
+                "--verify"
+            ],
+            "problemMatcher": [],
+            "detail": "Programs and verifies the connected XIAO with the debug image, then resets it. Automatic mass-erase recovery is disabled.",
+            "dependsOrder": "sequence"
+        }
+    ]
+}
