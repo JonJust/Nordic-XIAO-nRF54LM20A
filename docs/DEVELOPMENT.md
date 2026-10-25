@@ -4,7 +4,73 @@ Research date: October 20, 2026. Physical board revision and silicon revision re
 
 Follow-up: the SDK was subsequently installed, registration repaired, and a reference DK Hello World build verified. See [SDK registration repair](SDK_REGISTRATION.md). XIAO-specific builds, flashing, and hardware performance remain unverified.
 
-Latest status: the user confirmed **board V1.0**. The [first project](../apps/blinky/README.md) now builds successfully with NCS v3.4.1 and the pinned Seeed board root. This resolves the initial board-build compatibility uncertainty below for that LED application. Silicon revision and all hardware execution remain unverified; OpenOCD is still needed for programming. The original investigation is retained below as historical research.
+Status as of October 21, 2026: the user confirmed **board V1.0**. The [first project](../apps/blinky/README.md) builds, programs, runs, and debugs successfully with NCS v3.4.1, the pinned Seeed board root, and the installed Seeed OpenOCD. Source stepping, Run/Debug integration, and UART output are verified. See [the toolchain explanation](TOOLCHAIN.md) for the working architecture. Silicon revision, wireless performance, and native USB remain unverified. The original investigation is retained below as historical research.
+
+## Live UART diagnostics on the current V1.0 boards
+
+The [wireless benchmark](../apps/wireless_benchmark/README.md) now has a UART
+telemetry path for state changes, one-second packet statistics, and run results.
+Both physical boards have now emitted readable live status and completed-run
+summaries over this bridge. See the application's
+[validation record](../apps/wireless_benchmark/VALIDATION.md) for the telemetry
+timing comparison, measured radio results, and their test conditions.
+
+The existing board wiring is:
+
+```text
+Nordic UART20 P1.11/TX -> level shifter -> SAMD11 PA05/RX
+Nordic UART20 P1.10/RX <- level shifter <- SAMD11 PA08/TX
+SAMD11 USB CDC <-> board USB-C connector <-> PC serial monitor
+```
+
+USB serial and CMSIS-DAP are interfaces of the same SAMD11 USB device. Neither
+requires a native USB application on the Nordic, so they work with the V1.0
+board despite its unconnected Nordic USB-HS pins. Configure **115200 8N1**, no
+hardware flow control, and **DTR asserted**; the SAMD11 bridge needs DTR before
+it forwards the Nordic's UART data. These are UART signaling settings, separate
+from the configured 4 Mbit/s radio PHY.
+
+The monitor tasks in all three VS Code workspaces are **nRF: Monitor wireless
+RX (UART)**, **nRF: Monitor wireless TX (UART)**, and **nRF: Monitor wireless
+TX + RX (UART)**. They are independent of Build, Flash, Run, and Debug. Opening
+one does not reset the chip or clear measurements; **Ctrl+C** closes it cleanly.
+Close another serial monitor first if it already owns the requested port.
+
+The terminal equivalent is:
+
+```bash
+/usr/bin/python3 /home/skipper/repos/seeed_studio_nRF54LM20A/scripts/monitor-wireless.py --role both
+/usr/bin/python3 /home/skipper/repos/seeed_studio_nRF54LM20A/scripts/monitor-wireless.py --role rx --duration 15
+```
+
+`--role` accepts `both` (the default), `tx`, or `rx`; `--duration` accepts a
+positive duration in seconds. The helper verifies VID/PID **2886:0068** and
+the exact USB serials **E785BC0F** (TX) and **18B7FED4** (RX). It prefers verified
+`/dev/serial/by-id/` names rather than relying on changing `/dev/ttyACM*`
+numbers, asserts DTR, and reads both boards concurrently. Standard output
+contains firmware lines; connection/error messages go to standard error.
+
+The application uses asynchronous UART DMA transmit with UART interrupt
+priority **5**, below the RF, cadence, and GRTC interrupts. It formats messages
+outside the radio callbacks and reports approximately once per second instead
+of printing on every 125-microsecond packet. The UART is transmit-only from the
+application's perspective; no serial command parser is installed.
+Counter snapshots are taken only when a report is needed, keeping their short
+interrupt locks out of the otherwise idle 10 ms telemetry passes.
+
+Per-second RX and TX rates use deltas of **boot-lifetime** counters so a new run
+does not create an underflow when its per-run counts reset. RX counts unique
+accepted data packets, and TX counts local completed transmissions. A live run's
+missing count is based on sequence gaps and includes missing data caused by
+transmitter omissions, radio loss, or acceptance failures. The final run summary
+adds the unreceived tail. Since the data phase uses no ACKs, TX alone cannot
+confirm delivery; use RX counters or the exchanged end-of-run summary.
+
+Serial reporting preserves the 25-entry `g_benchmark_results` array and
+`g_benchmark_average`; these remain useful for breakpoint inspection. Attaching
+without reset preserves old measurements, but Pause and breakpoints halt both
+radio servicing and serial reporting. Flashing or resetting starts a fresh RAM
+history. The sections below retain the original hardware/software investigation.
 
 ## Establish the hardware revision first
 

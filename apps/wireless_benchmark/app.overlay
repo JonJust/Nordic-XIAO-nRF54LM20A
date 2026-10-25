@@ -1,0 +1,46 @@
+/* The blue LED is a GPIO heartbeat; no PWM driver should claim it. */
+&pwm20 {
+	status = "disabled";
+};
+
+/* V1.0 has no Nordic USB connection. The SAMD11 remains the debug bridge. */
+&usbhs {
+	status = "disabled";
+};
+&usbhs_wrapper {
+	status = "disabled";
+};
+&vregusb {
+	status = "disabled";
+};
+
+/* TIMER20 is accessed directly through nrfx, so leave its Zephyr driver off.
+ * ESB owns TIMER10; the operating system owns GRTC. Do not share those timers.
+ */
+&timer20 {
+	status = "disabled";
+};
+
+/* On this SoC the application's GRTC IRQs are GRTC_2/3 (228/229).
+ * Keep kernel clock bookkeeping below RADIO (1), ESB events (2), and our
+ * cadence timer (3), so a control-thread wakeup cannot needlessly delay RF.
+ */
+&grtc {
+	interrupts = <228 4>, <229 4>;
+};
+
+/* V1.0 UART20 is wired through a level shifter to the SAMD11 USB-CDC bridge.
+ * Its low-priority DMA completion must not preempt radio/cadence/clock work.
+ * This telemetry module only transmits; it never starts a UART RX DMA/timer.
+ */
+&uart20 {
+	status = "okay";
+	current-speed = <115200>;
+	interrupts = <198 5>;
+	disable-rx;
+};
+
+/* UART21 is the separate D6/D7 header UART, unused in this experiment. */
+&uart21 {
+	status = "disabled";
+};

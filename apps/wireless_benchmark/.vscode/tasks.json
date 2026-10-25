@@ -1,0 +1,185 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "nRF: List XIAO wireless probes",
+            "type": "process",
+            "command": "/usr/bin/python3",
+            "args": [
+                "${workspaceFolder}/../../scripts/wireless-benchmark.py",
+                "probes"
+            ],
+            "problemMatcher": [],
+            "detail": "List only Seeed XIAO CMSIS-DAP devices and their exact USB serials."
+        },
+        {
+            "label": "nRF: Check wireless debugger is available",
+            "type": "process",
+            "command": "/usr/bin/python3",
+            "args": [
+                "${workspaceFolder}/../../scripts/check-xiao-available.py"
+            ],
+            "problemMatcher": [],
+            "detail": "Explain if an existing debug session still owns localhost:3333."
+        },
+        {
+            "label": "nRF: Build wireless TX (NCS 3.4.1)",
+            "type": "process",
+            "command": "/usr/bin/python3",
+            "args": [
+                "${workspaceFolder}/../../scripts/wireless-benchmark.py",
+                "build",
+                "--role",
+                "tx"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$gcc",
+            "detail": "Build the fixed TX role with debug symbols into build-tx."
+        },
+        {
+            "label": "nRF: Clean wireless TX (NCS 3.4.1)",
+            "type": "process",
+            "command": "/usr/bin/python3",
+            "args": [
+                "${workspaceFolder}/../../scripts/wireless-benchmark.py",
+                "clean",
+                "--role",
+                "tx"
+            ],
+            "group": "build",
+            "problemMatcher": [],
+            "detail": "Clean compiled outputs for build-tx, keeping its configuration."
+        },
+        {
+            "label": "nRF: Flash wireless TX (OpenOCD)",
+            "type": "process",
+            "command": "/usr/bin/python3",
+            "args": [
+                "${workspaceFolder}/../../scripts/wireless-benchmark.py",
+                "flash",
+                "--role",
+                "tx",
+                "--serial",
+                "E785BC0F"
+            ],
+            "dependsOn": [
+                "nRF: Check wireless debugger is available",
+                "nRF: Build wireless TX (NCS 3.4.1)"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": [],
+            "detail": "Build, program, verify, and start the selected TX XIAO. Requires an exact serial if two are attached."
+        },
+        {
+            "label": "nRF: Build wireless RX (NCS 3.4.1)",
+            "type": "process",
+            "command": "/usr/bin/python3",
+            "args": [
+                "${workspaceFolder}/../../scripts/wireless-benchmark.py",
+                "build",
+                "--role",
+                "rx"
+            ],
+            "group": "build",
+            "problemMatcher": "$gcc",
+            "detail": "Build the fixed RX role with debug symbols into build-rx."
+        },
+        {
+            "label": "nRF: Clean wireless RX (NCS 3.4.1)",
+            "type": "process",
+            "command": "/usr/bin/python3",
+            "args": [
+                "${workspaceFolder}/../../scripts/wireless-benchmark.py",
+                "clean",
+                "--role",
+                "rx"
+            ],
+            "group": "build",
+            "problemMatcher": [],
+            "detail": "Clean compiled outputs for build-rx, keeping its configuration."
+        },
+        {
+            "label": "nRF: Flash wireless RX (OpenOCD)",
+            "type": "process",
+            "command": "/usr/bin/python3",
+            "args": [
+                "${workspaceFolder}/../../scripts/wireless-benchmark.py",
+                "flash",
+                "--role",
+                "rx",
+                "--serial",
+                "18B7FED4"
+            ],
+            "dependsOn": [
+                "nRF: Check wireless debugger is available",
+                "nRF: Build wireless RX (NCS 3.4.1)"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": [],
+            "detail": "Build, program, verify, and start the selected RX XIAO. Requires an exact serial if two are attached."
+        },
+        {
+            "label": "nRF: Monitor wireless RX (UART)",
+            "type": "process",
+            "command": "/usr/bin/python3",
+            "args": [
+                "${workspaceFolder}/../../scripts/monitor-wireless.py",
+                "--role",
+                "rx"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            },
+            "runOptions": {
+                "instanceLimit": 1
+            },
+            "detail": "Read live UART status through the SAMD11 USB bridge at 115200 8N1. Ctrl+C stops monitoring; no build, flash, or reset."
+        },
+        {
+            "label": "nRF: Monitor wireless TX (UART)",
+            "type": "process",
+            "command": "/usr/bin/python3",
+            "args": [
+                "${workspaceFolder}/../../scripts/monitor-wireless.py",
+                "--role",
+                "tx"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            },
+            "runOptions": {
+                "instanceLimit": 1
+            },
+            "detail": "Read live UART status through the SAMD11 USB bridge at 115200 8N1. Ctrl+C stops monitoring; no build, flash, or reset."
+        },
+        {
+            "label": "nRF: Monitor wireless TX + RX (UART)",
+            "type": "process",
+            "command": "/usr/bin/python3",
+            "args": [
+                "${workspaceFolder}/../../scripts/monitor-wireless.py",
+                "--role",
+                "both"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            },
+            "runOptions": {
+                "instanceLimit": 1
+            },
+            "detail": "Read live UART status through the SAMD11 USB bridge at 115200 8N1. Ctrl+C stops monitoring; no build, flash, or reset."
+        }
+    ]
+}

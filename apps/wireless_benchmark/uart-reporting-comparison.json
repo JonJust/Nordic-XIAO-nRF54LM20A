@@ -1,0 +1,95 @@
+{
+  "date": "2026-10-22",
+  "description": "Reporting on/off/on in the same pre-optimization image; UART remains initialized; memory sampling does not halt or reset either CPU.",
+  "image_hex_sha256": {
+    "tx": "4b0b077be7099a765fa52e6a8370339d48ef1d2fe6b2ba79ce355f4c3c2151f9",
+    "rx": "1b5e14b06f581eccc32d5fb0c02d2f3b6ccf6272fbb0b91d61a464b39b28bf97"
+  },
+  "phases": [
+    {
+      "phase": "on_before",
+      "run_id": 63915432,
+      "delta": {
+        "tx": {
+          "tx_successes": 160312,
+          "tx_busy_drops": 20,
+          "tx_missed_deadlines": 0,
+          "tx_submit_errors": 0,
+          "tx_failures": 0,
+          "rx_unique_packets": 0,
+          "rx_missing_packets": 0,
+          "elapsed_us": 20040746,
+          "packets_per_second": 7999.303
+        },
+        "rx": {
+          "tx_successes": 0,
+          "tx_busy_drops": 0,
+          "tx_missed_deadlines": 0,
+          "tx_submit_errors": 0,
+          "tx_failures": 0,
+          "rx_unique_packets": 147361,
+          "rx_missing_packets": 12972,
+          "elapsed_us": 20040568,
+          "packets_per_second": 7353.135
+        }
+      }
+    },
+    {
+      "phase": "off",
+      "run_id": 63915432,
+      "delta": {
+        "tx": {
+          "tx_successes": 160337,
+          "tx_busy_drops": 0,
+          "tx_missed_deadlines": 0,
+          "tx_submit_errors": 0,
+          "tx_failures": 0,
+          "rx_unique_packets": 0,
+          "rx_missing_packets": 0,
+          "elapsed_us": 20041374,
+          "packets_per_second": 8000.3
+        },
+        "rx": {
+          "tx_successes": 0,
+          "tx_busy_drops": 0,
+          "tx_missed_deadlines": 0,
+          "tx_submit_errors": 0,
+          "tx_failures": 0,
+          "rx_unique_packets": 157015,
+          "rx_missing_packets": 3318,
+          "elapsed_us": 20040692,
+          "packets_per_second": 7834.809
+        }
+      }
+    },
+    {
+      "phase": "on_after",
+      "run_id": 63915432,
+      "delta": {
+        "tx": {
+          "tx_successes": 160322,
+          "tx_busy_drops": 20,
+          "tx_missed_deadlines": 0,
+          "tx_submit_errors": 0,
+          "tx_failures": 0,
+          "rx_unique_packets": 0,
+          "rx_missing_packets": 0,
+          "elapsed_us": 20041870,
+          "packets_per_second": 7999.353
+        },
+        "rx": {
+          "tx_successes": 0,
+          "tx_busy_drops": 0,
+          "tx_missed_deadlines": 0,
+          "tx_submit_errors": 0,
+          "tx_failures": 0,
+          "rx_unique_packets": 154552,
+          "rx_missing_packets": 5787,
+          "elapsed_us": 20041438,
+          "packets_per_second": 7711.622
+        }
+      }
+    }
+  ],
+  "interpretation": "Reporting had measurable overhead in this earlier build. Final code takes IRQ-locked counter snapshots only when a report is due. RX loss remains even with reporting disabled; this test does not identify its remaining cause."
+}

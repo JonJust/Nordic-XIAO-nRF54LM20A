@@ -1,0 +1,217 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug wireless TX (build + flash)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-tx/zephyr/zephyr.elf",
+            "cwd": "${workspaceFolder}",
+            "MIMode": "gdb",
+            "miDebuggerPath": "/home/skipper/ncs/toolchains/8285d8ad56/opt/zephyr-sdk/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb",
+            "miDebuggerServerAddress": "127.0.0.1:3333",
+            "debugServerPath": "/usr/bin/python3",
+            "debugServerArgs": "\"${workspaceFolder}/../../scripts/wireless-benchmark.py\" debug-server --role tx --serial \"E785BC0F\"",
+            "serverStarted": "Listening on port 3333 for gdb connections",
+            "filterStderr": true,
+            "serverLaunchTimeout": 10000,
+            "stopAtEntry": false,
+            "postRemoteConnectCommands": [
+                {
+                    "text": "monitor reset halt",
+                    "ignoreFailures": false
+                },
+                {
+                    "description": "Stop at main using a temporary hardware breakpoint. Press F5 to start the benchmark.",
+                    "text": "-break-insert -h -t main",
+                    "ignoreFailures": false
+                }
+            ],
+            "launchCompleteCommand": "exec-continue",
+            "hardwareBreakpoints": {
+                "require": true
+            },
+            "externalConsole": false,
+            "setupCommands": [
+                {
+                    "description": "Allow RAM Watch outside the manually defined read-only code region; OpenOCD memory-map reporting is disabled.",
+                    "text": "set mem inaccessible-by-default off",
+                    "ignoreFailures": false
+                },
+                {
+                    "description": "Use hardware breakpoints for Nordic RRAM, including the temporary breakpoint at main.",
+                    "text": "mem 0x00000000 0x001fd000 ro",
+                    "ignoreFailures": false
+                }
+            ],
+            "preLaunchTask": "nRF: Flash wireless TX (OpenOCD)",
+            "presentation": {
+                "group": "Wireless benchmark",
+                "order": 1
+            },
+            "unknownBreakpointHandling": "stop"
+        },
+        {
+            "name": "Run wireless TX (build + flash)",
+            "type": "cppdbg",
+            "request": "launch",
+            "noDebug": true,
+            "program": "/usr/bin/printf",
+            "args": [
+                "Wireless TX is running.\\n"
+            ],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "nRF: Flash wireless TX (OpenOCD)",
+            "externalConsole": false,
+            "presentation": {
+                "group": "Wireless benchmark",
+                "order": 2
+            }
+        },
+        {
+            "name": "Debug wireless RX (build + flash)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-rx/zephyr/zephyr.elf",
+            "cwd": "${workspaceFolder}",
+            "MIMode": "gdb",
+            "miDebuggerPath": "/home/skipper/ncs/toolchains/8285d8ad56/opt/zephyr-sdk/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb",
+            "miDebuggerServerAddress": "127.0.0.1:3333",
+            "debugServerPath": "/usr/bin/python3",
+            "debugServerArgs": "\"${workspaceFolder}/../../scripts/wireless-benchmark.py\" debug-server --role rx --serial \"18B7FED4\"",
+            "serverStarted": "Listening on port 3333 for gdb connections",
+            "filterStderr": true,
+            "serverLaunchTimeout": 10000,
+            "stopAtEntry": false,
+            "postRemoteConnectCommands": [
+                {
+                    "text": "monitor reset halt",
+                    "ignoreFailures": false
+                },
+                {
+                    "description": "Stop at main using a temporary hardware breakpoint. Press F5 to start the benchmark.",
+                    "text": "-break-insert -h -t main",
+                    "ignoreFailures": false
+                }
+            ],
+            "launchCompleteCommand": "exec-continue",
+            "hardwareBreakpoints": {
+                "require": true
+            },
+            "externalConsole": false,
+            "setupCommands": [
+                {
+                    "description": "Allow RAM Watch outside the manually defined read-only code region; OpenOCD memory-map reporting is disabled.",
+                    "text": "set mem inaccessible-by-default off",
+                    "ignoreFailures": false
+                },
+                {
+                    "description": "Use hardware breakpoints for Nordic RRAM, including the temporary breakpoint at main.",
+                    "text": "mem 0x00000000 0x001fd000 ro",
+                    "ignoreFailures": false
+                }
+            ],
+            "preLaunchTask": "nRF: Flash wireless RX (OpenOCD)",
+            "presentation": {
+                "group": "Wireless benchmark",
+                "order": 3
+            },
+            "unknownBreakpointHandling": "stop"
+        },
+        {
+            "name": "Run wireless RX (build + flash)",
+            "type": "cppdbg",
+            "request": "launch",
+            "noDebug": true,
+            "program": "/usr/bin/printf",
+            "args": [
+                "Wireless RX is running.\\n"
+            ],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "nRF: Flash wireless RX (OpenOCD)",
+            "externalConsole": false,
+            "presentation": {
+                "group": "Wireless benchmark",
+                "order": 4
+            }
+        },
+        {
+            "name": "Attach wireless RX (preserve RAM)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-rx/zephyr/zephyr.elf",
+            "cwd": "${workspaceFolder}",
+            "MIMode": "gdb",
+            "miDebuggerPath": "/home/skipper/ncs/toolchains/8285d8ad56/opt/zephyr-sdk/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb",
+            "miDebuggerServerAddress": "127.0.0.1:3333",
+            "debugServerPath": "/usr/bin/python3",
+            "debugServerArgs": "\"${workspaceFolder}/../../scripts/wireless-benchmark.py\" debug-server --role rx --serial \"18B7FED4\" --attach",
+            "serverStarted": "Listening on port 3333 for gdb connections",
+            "filterStderr": true,
+            "serverLaunchTimeout": 10000,
+            "stopAtEntry": false,
+            "launchCompleteCommand": "exec-continue",
+            "hardwareBreakpoints": {
+                "require": true
+            },
+            "externalConsole": false,
+            "setupCommands": [
+                {
+                    "description": "Allow RAM Watch outside the manually defined read-only code region; OpenOCD memory-map reporting is disabled.",
+                    "text": "set mem inaccessible-by-default off",
+                    "ignoreFailures": false
+                },
+                {
+                    "description": "Use hardware breakpoints for Nordic RRAM, including the temporary breakpoint at main.",
+                    "text": "mem 0x00000000 0x001fd000 ro",
+                    "ignoreFailures": false
+                }
+            ],
+            "preLaunchTask": "nRF: Check wireless debugger is available",
+            "presentation": {
+                "group": "Wireless benchmark",
+                "order": 5
+            },
+            "unknownBreakpointHandling": "stop"
+        },
+        {
+            "name": "Attach wireless TX (preserve RAM)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-tx/zephyr/zephyr.elf",
+            "cwd": "${workspaceFolder}",
+            "MIMode": "gdb",
+            "miDebuggerPath": "/home/skipper/ncs/toolchains/8285d8ad56/opt/zephyr-sdk/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb",
+            "miDebuggerServerAddress": "127.0.0.1:3333",
+            "debugServerPath": "/usr/bin/python3",
+            "debugServerArgs": "\"${workspaceFolder}/../../scripts/wireless-benchmark.py\" debug-server --role tx --serial \"E785BC0F\" --attach",
+            "serverStarted": "Listening on port 3333 for gdb connections",
+            "filterStderr": true,
+            "serverLaunchTimeout": 10000,
+            "stopAtEntry": false,
+            "launchCompleteCommand": "exec-continue",
+            "hardwareBreakpoints": {
+                "require": true
+            },
+            "externalConsole": false,
+            "setupCommands": [
+                {
+                    "description": "Allow RAM Watch outside the manually defined read-only code region; OpenOCD memory-map reporting is disabled.",
+                    "text": "set mem inaccessible-by-default off",
+                    "ignoreFailures": false
+                },
+                {
+                    "description": "Use hardware breakpoints for Nordic RRAM, including the temporary breakpoint at main.",
+                    "text": "mem 0x00000000 0x001fd000 ro",
+                    "ignoreFailures": false
+                }
+            ],
+            "preLaunchTask": "nRF: Check wireless debugger is available",
+            "presentation": {
+                "group": "Wireless benchmark",
+                "order": 6
+            },
+            "unknownBreakpointHandling": "stop"
+        }
+    ]
+}

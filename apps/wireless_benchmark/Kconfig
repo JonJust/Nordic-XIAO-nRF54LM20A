@@ -1,0 +1,31 @@
+mainmenu "XIAO 4 Mbit/s ESB benchmark"
+
+# Seeed also declares UART_CONSOLE outside Zephyr's CONSOLE menu, with a
+# default of y when SERIAL is enabled. With CONSOLE=n its user prompt is
+# hidden, so prj.conf alone cannot override that default. Put this default
+# first to keep the dedicated telemetry UART free of a console backend.
+config UART_CONSOLE
+	default n
+
+source "Kconfig.zephyr"
+
+choice BENCHMARK_ROLE
+
+	prompt "Role of this board"
+	default BENCHMARK_TRANSMITTER
+
+config BENCHMARK_TRANSMITTER
+	bool "Mouse-side transmitter (PTX)"
+
+config BENCHMARK_RECEIVER
+	bool "Dongle-side receiver (PRX)"
+
+endchoice
+
+config BENCHMARK_RF_CHANNEL
+	int "Fixed ESB RF channel (2400 MHz + channel)"
+	range 0 80
+	default 40
+	help
+	  Both builds must use the same channel. This evaluation has no hopping,
+	  encryption, or production pairing; keep unrelated test pairs apart.

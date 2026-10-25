@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-22",
+  "board_target": "xiao_nrf54lm20a@1.0.0/nrf54lm20a/cpuapp",
+  "sdk": "NCS v3.4.1",
+  "probe_serials": {
+    "tx": "E785BC0F",
+    "rx": "18B7FED4"
+  },
+  "conditions": "Both boards ran continuously with 1 Hz UART20 EasyDMA status enabled; USB serial at 115200 8N1 with DTR asserted; no debug memory sampling, halt, reset, or breakpoint during this run.",
+  "image_hex_sha256": {
+    "tx": "3d50efe0634f7cfc04e48052a16d5b7b5069e6417144bc86be06a881acc862d3",
+    "rx": "f1e83c7b3d44c08476aee32d425e8569943e6df8129d94d239898455fba0942c"
+  },
+  "results": {
+    "tx": {
+      "generation": 1,
+      "run_id": 3536567616,
+      "run_id_hex": "D2CBBD40",
+      "complete": 1,
+      "tx": 1000000,
+      "rx": 0,
+      "lost": 0,
+      "busy": 0,
+      "missed": 0,
+      "errors": 0,
+      "rate": 8000.301,
+      "max_gap_us": 0,
+      "max_late_us": 14,
+      "raw_uart_line": "[TX] RESULT #=1 run=D2CBBD40 complete=1 tx=1000000 rx=0 lost=0 busy=0 missed=0 errors=0 rate=8000.301/s max_gap_us=0 max_late_us=14"
+    },
+    "rx": {
+      "generation": 1,
+      "run_id": 3536567616,
+      "run_id_hex": "D2CBBD40",
+      "complete": 1,
+      "tx": 0,
+      "rx": 970469,
+      "lost": 29531,
+      "busy": 0,
+      "missed": 0,
+      "errors": 0,
+      "rate": 7764.113,
+      "max_gap_us": 12381,
+      "max_late_us": 0,
+      "raw_uart_line": "[RX] RESULT #=1 run=D2CBBD40 complete=1 tx=0 rx=970469 lost=29531 busy=0 missed=0 errors=0 rate=7764.113/s max_gap_us=12381 max_late_us=0"
+    }
+  },
+  "tx_received_summary": "[TX] LINK state=PAUSE run=D2CBBD40 error=0 reconnects=1 peer_last_rx=970469 peer_last_lost=29531 peer_summary_valid=1",
+  "sample_status": {
+    "tx": "[TX] t=2s state=RUNNING run=D2CBBD40 window_ms=1002 tx/s=8000 rx/s=0 tx=14904 rx=0 lost=0 busy=0 missed=0 err=0 rejected=0 ctrl_fail=0 ctrl_overflow=0 uart_err=0 uart_abort=0",
+    "rx": "[RX] t=47s state=RUNNING run=D2CBBD40 window_ms=1000 tx/s=0 rx/s=8000 tx=0 rx=231420 lost=14306 busy=0 missed=0 err=0 rejected=104240 ctrl_fail=0 ctrl_overflow=0 uart_err=0 uart_abort=0"
+  },
+  "all_observed_uart_error_and_abort_counters_zero": true,
+  "interpretation": "Serial reporting works and the final transmitter had no local busy drops or missed deadlines. Receiver loss of 2.9531% remains unisolated; this does not establish reliable end-to-end 8 kHz mouse delivery."
+}
